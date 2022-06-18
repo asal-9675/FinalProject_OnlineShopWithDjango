@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title  %}
+    Shopping CART
+{% endblock %}
+
+{% block content %}
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class=""><a href="{% url 'shop:index' %}"> &#10148; Home </a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+    <div class="container">
+</nav><br>
+    <div class="section-title text-center">
+    <h1>Your Shopping CART</h1>
+    </div>
+    
+    
+    <table class="cart" style="width:100%; border: 1px solid #F9F9F9; background-color: #F9F9F9;">
+        <thead>
+            <tr style="border: 1px solid #ddd; font-size: 15px; line-height: 1.8em; text-align:center">
+                <th style="padding:15px">Image</th><br>
+                <th>Product</th>
+                <th>Count</th>
+                <th>Remove</th>
+                <th>Unit price</th>
+                <th>Total price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <tr class="product" style="font-size:16px bold">
+                        <td>
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.url }}" style="width:350px">
+                            </a>
+                        </td>
+                        <td class="">{{ product.name }}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                                {{ item.update_product_count_form.product_count }}
+                                {{ item.update_product_count_form.update }}
+                                {% csrf_token %}
+                                <button class="btn btn-primary btn-xl" style="font-size:14px;"><i class="fa fa-refresh" style="font-size:18px;" aria-hidden="true"></i> Update</button>
+                            </form>
+                        </td>
+                       
+                        <td><a href="{% url 'cart:cart_remove' product.id %}"><button class="btn btn-danger" style="font-size:14px;"><i class="fa fa-trash"style="font-size:18px;" aria-hidden="true"></i> Remove</button></a></td>
+                        
+                        <td class="num">${{ item.price }}</td>
+                        <td class="num">${{ item.total_price }}</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr class="total" style="font-size:32px">
+                <td style="padding:15px;">Total Price</td>
+                <td colspan="4"></td>
+                <td class="num">${{ cart.get_total_price }}</td>
+            </tr>
+        </tbody>
+    </table><br><br>
+    <br><p class="text-right">
+        <a href="{% url 'shop:store' %}"  class="primary-btn order-submit" type="submit">Continue shopping</a><br><br>
+        <a href="{% url 'shop:checkout' %}"  class="primary-btn order-submit" type="submit">Checkout</a>
+    </p>
+
+{% endblock %}
+

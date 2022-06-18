@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign up {% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+</head>
+<body>
+    <div class="container">
+    <br>
+    <br>
+    <br>
+    <h1 class="title">Log in</h1>
+    <br>
+    <br>
+    <br>
+    <br>   
+       
+            <form action="" method="POST" >
+                {{ form.as_p }}
+                {% csrf_token %}<br><br><br>
+                <input  class ="primary-btn order-submit" type="submit" value="Log in">
+            </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
+    
+</body>
+</html>        
+{% endblock %}

@@ -1,0 +1,77 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Store {% endblock %}
+{% block content %}
+
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li class="active"><a href="{% url 'shop:index' %}">Home</a></li>
+						<li><a href="{% url 'shop:index' %}">Hot Deals</a></li>
+						<li><a href="{% url 'shop:index' %}">Categories</a></li>
+						<li><a href="#">Laptops</a></li>
+						<li><a href="#">Smartphones</a></li>
+						<li><a href="#">Cameras</a></li>
+						<li><a href="#">Accessories</a></li>
+					</ul>
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">				
+					<!-- STORE -->
+					<div id="store" class="col-md-12">
+						<!-- /store top filter -->
+				{% for product in product_list %}
+					<!-- product -->
+					<div class="col-md-4 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<img src="{{ product.image.url }}" alt="">
+							</div>
+							<div class="product-body">
+								<h3 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+								<h4 class="product-price">${{ product.price }}</h4>
+							</div>
+							<div class="add-to-cart">
+								<a href="{{ product.get_absolute_url }}"><button class="add-to-cart-btn"><i class="fa fa-eye"></i> Veiw Product</button></a>  
+							</div>
+						</div>
+					</div>	
+					<!-- /product -->
+				{% endfor %}
+						<!-- store bottom filter -->
+						<div class="store-filter clearfix">
+							<span class="store-qty">Showing 20-100 products</span>
+							<ul class="store-pagination">
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
+						</div>
+						<!-- /store bottom filter -->
+					<!-- /STORE -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+{% endblock %}
